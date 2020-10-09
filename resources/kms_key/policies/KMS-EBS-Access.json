@@ -1,0 +1,48 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+               "AWS": ["arn:aws:iam::${aws_account_id}:root"]
+            },
+            "Action": [
+                "kms:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+               "AWS": ["${principals}"]
+            },
+            "Action": [
+                "kms:DescribeKey",
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:GenerateDataKeyWithoutPlaintext",
+                "kms:ReEncryptFrom",
+                "kms:ReEncryptTo"
+            ],
+            "Resource": "arn:aws:kms:${region}:${aws_account_id}:key/*"
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": ["${principals}"]
+            },
+            "Action": [
+                "kms:CreateGrant",
+                "kms:ListGrants",
+                "kms:RevokeGrant"
+            ],
+            "Resource": "arn:aws:kms:${region}:${aws_account_id}:key/*",
+            "Condition": {
+                "Bool": {
+                    "kms:GrantIsForAWSResource": "true"
+                }
+            }
+        }
+    ]
+}
+
