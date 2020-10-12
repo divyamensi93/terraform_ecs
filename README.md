@@ -13,3 +13,15 @@ Functional Requirements used:
 1 EC2 instance 
 
 
+please add the below add in variable.tf and replace default as mentioned 
+**vault can also be used instead of hardcoding.
+
+variable "aws_access_key" {
+ type =string
+ default= "<your aws access key>"
+}  
+
+variable "aws_secret_key" {
+ type =string
+ default="<your aws secret key>"
+}
